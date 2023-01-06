@@ -6,9 +6,9 @@ This project is making game “tetris”. The goal of the game is to complete a 
 
 Use right and left arrow keys to move blocks. Use up arrow key to turn around block by clockwise
 
-### Language used
+### Language and modules used
 
-python 
+python - pygame, random, math, time
 
 ### Number of code line
 
