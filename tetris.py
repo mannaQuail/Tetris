@@ -22,8 +22,6 @@ screen = pg.display.set_mode(size)
 font = pg.font.SysFont("arial", 30, True, True)
 done = False
 clock = pg.time.Clock()
-block = None
-next_block = None
 
 block_type = (
 	(
@@ -297,11 +295,9 @@ class Block:
 				yy = i/int(math.sqrt(len(block_type[self.shape-1][self.turn])))
 
 				field[self.x+xx+(self.y+yy-1)*14] = 0
-
 			return False
 
 		elif check==False:
-
 			return True
 
 	def move_block_2_left(self):
@@ -376,8 +372,12 @@ def draw_field():
 			elif field[i*14+j]==9:
 				draw(9,j*25,i*25)
 
+# def set_new_block():
+# 	rand = randint(1,7)
+
+
 def creat_new_block():
-	rand = randint(1, 7)
+	rand = randint(1,7)
 	new_block = Block(rand)
 	new_block.update_block()
 	return new_block
@@ -413,27 +413,47 @@ def death_check():
 	if check==True:
 		return True
 
-
-
 def runGame():
 	global done
 	reach = True
 	setting_init_field()
 	time_check = 0
 	score = 0
-	level = 5
+	level = 9
+	new_block = Block(1)
 	while not done:
-		clock.tick(10)
+		clock.tick(20)
 		screen.fill(black)
-		if score==100:
-			level-=2
-		elif score==1000:
-			level-=2
+		if score>=300 and score<600:
+			if level>=9:
+				level-=1
+		elif score>=600 and score<900:
+			if level>=8:
+				level-=1
+		elif score>=900 and score<1200:
+			if level>=7:
+				level-=1
+		elif score>=1200 and score<1500:
+			if level>=6:
+				level-=1
+		elif score>=1500 and score<1800:
+			if level>=5:
+				level-=1
+		elif score>=1800 and score<2100:
+			if level>=4:
+				level-=1
+		elif score>=2100 and score<2400:
+			if level>=3:
+				level-=1
+		elif score>=2400 and score<2700:
+			if level>=2:
+				level-=1
+
+
 		if time_check==level:
 			if reach==True:
 				if death_check()==True:
 					done = True
-
 				while check_line()!=None:
 					line = check_line()
 					delete_line(line)
@@ -441,7 +461,7 @@ def runGame():
 
 				new_block = creat_new_block()
 				reach = False
-
+				
 			reach = new_block.down_block()
 			new_block.update_block()
 
