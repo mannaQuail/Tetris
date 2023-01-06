@@ -12,4 +12,4 @@ python - pygame, random, math, time
 
 ### Number of code line
 
-486 lines
+506 lines
